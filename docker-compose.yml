@@ -1,0 +1,41 @@
+version: '3'
+services:
+  backend:
+    image: adityashah346/21bcp415-backend
+    ports:
+      - 5000:5000
+    depends_on:
+      - mongo
+    
+    networks:
+      - bridge
+    
+    volumes:
+      - ./server/:/server/
+      - /server/node_modules
+
+
+  frontend:
+    image: adityashah346/21bcp415-frontend
+    ports:
+      - 3000:3000
+
+
+  mongo:
+    image: adityashah346/21bcp415-database
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+    networks:
+      - bridge
+
+networks:
+  bridge:
+    driver: bridge
+
+
+volumes:
+  mongo-data:
+
